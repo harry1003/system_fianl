@@ -1,11 +1,18 @@
 #include <iostream>
+#include <fstream>
+#include "./util.h"
 #include "./Huffman.h"
 
 using namespace std;
 
 int main(){
-    cout << "test" << endl;
+    ifstream ifs("./test_case.txt");
+    string content( 
+        (istreambuf_iterator<char>(ifs)),
+        (istreambuf_iterator<char>()) 
+    );
+
+    Map dictionary = get_dictionary(content);
     Huffman huffman;
-    unordered_map<string, double> dictionary;
-    huffman.encode(dictionary);
+    huffman.encode(content, dictionary);
 }
