@@ -9,6 +9,5 @@ using namespace std;
 typedef unordered_map<string, double> Map;
 
 
-Map get_dictionary(string);
-
+Map get_dictionary_txt(string);
 #endif

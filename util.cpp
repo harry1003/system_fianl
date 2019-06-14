@@ -1,8 +1,8 @@
-#include <util.h>
+#include "util.h"
 
 
 // Warning: some special words can't not show correctly
-Map get_dictionary(string content){
+Map get_dictionary_txt(string content){
     Map dictionary;
     for(size_t i=0; i<content.size(); i++){
         string s(1, content[i]); 
@@ -18,7 +18,6 @@ Map get_dictionary(string content){
     Map::iterator it = dictionary.begin();
     for(; it != dictionary.end(); it++){
         it->second /= (content.size() + 1);
-        cout << it->first << ' ' << it->second << endl;
     }
     return dictionary;
 }
