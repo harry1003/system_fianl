@@ -8,11 +8,12 @@ class Arithmetic{
 public:
     Arithmetic(){};
     string encode(string content, Map dictionary);
+    string decode(string binary, Map dictionary, int length=256);
 };
 
 class Range{
 public:
-    Range(){low = 0; high = 1; follow=0;}
+    Range(){low = 0; high = 1; follow=0; end=false;}
     string encode_symbol(double x1, double x2){
         if(x2 < x1){
             cout << "Error: x2 shoule > x1, but get x2 = " << x2 << ", x1 = " << x1 << endl;
@@ -25,50 +26,90 @@ public:
         while(true){
             if(high <= 0.5){
                 binary = binary + "0";
-                for(int i=0; i<follow; i++){
-                    binary = binary + "1";
-                }
-                follow = 0;
-
                 low = low * 2;
                 high = high * 2;
             }
             else if(low >= 0.5){
                 binary = binary + "1";
-                for(int i=0; i<follow; i++){
-                    binary = binary + "0";
-                }
-                follow = 0;
-
-                high = 1 - (1 - high) * 2;
-                low = 1 - (1 - low) * 2;
-            }
-            else if(low >= 0.25 && high <= 0.75){
-                follow = follow + 1;
-
-                double h_d = (0.75 - high) * 2;
-                double l_d = (low - 0.25) * 2;
-                high = 1 - h_d;
-                low = 0 + l_d;
+                high = 2 * (high - 0.5);
+                low = 2 * (low - 0.5);
             }
             else{
                 return binary;
             }
+        }
+    }
 
-            if(low > high){
-                cout << "Unexpected Error at encode_symbol" << endl;
-                exit(1);
+    string decode_symbol(double x, Map& dictionary){
+        string answer = "";
+        while(true){
+            if(high <= 0.5){
+                high = high * 2;
+                low = low * 2;
+                return answer;
+            }
+            else if(low >= 0.5){
+                high = 2 * (high - 0.5);
+                low = 2 * (low - 0.5);
+                return answer;
+            }
+
+            Map::iterator it = dictionary.begin();
+            Map::iterator before = it;
+            double rescale = (x - low) / (high - low);
+           
+            for(; it != dictionary.end(); it++){
+                if(it->second > rescale){
+                    if(it->first == "EOF"){
+                        end = true;
+                        return answer;
+                    }
+                    answer = answer + it->first;
+                    break;
+                }
+                before = it;
+            }
+
+            // update high and low
+            double dis = high - low;
+            high = low + dis * it->second;
+            if(it == before){
+                low = low;
+            }
+            else{
+                low = low + dis * before->second;
             }
         }
-        cout << "Unexpected Error at encode_symbol" << endl;
-        exit(1);
     }
 
-    string end(){
-        return "1";
-    }
-
-private:
     double low, high;
     int follow;
+    bool end;
+};
+
+class Bits{
+public:
+    Bits(int l, string b){binary = b; length = l; current=0;}
+
+    double get_next(){
+        if(size_t(current + length) > binary.size()){
+            cout << "heheh" << endl;
+            exit(1);
+        }
+
+        double answer = 0;
+        double x = 0.5;
+
+        for(int i=0; i<length; i++){
+            if(binary[current + i] == '1'){
+                answer = answer + x;
+            }
+            x = x / 2;
+        }
+        current = current + 1;
+        return answer;
+    }
+
+    int length, current;
+    string binary;
 };

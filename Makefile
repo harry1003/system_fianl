@@ -3,7 +3,7 @@ EXE = encode_decode
 CC = g++
 CPPFLAGS = -Wall -O2 -std=c++11
 
-OBJ_FILES = main.o util.o Huffman.o Arithmetic.o 
+OBJ_FILES = main.o util.o Huffman.o Arithmetic.o LZW.o
 
 $(EXE): $(OBJ_FILES)
 	$(CC) $(CPPFLAGS) -o $(EXE) $(OBJ_FILES)

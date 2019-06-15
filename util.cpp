@@ -1,3 +1,6 @@
+#include <fstream>
+#include <limits>
+#include <bitset>
 #include "util.h"
 
 
@@ -20,4 +23,22 @@ Map get_dictionary_txt(string content){
         it->second /= (content.size() + 1);
     }
     return dictionary;
+}
+
+
+// http://www.cplusplus.com/forum/beginner/231403/
+string read_bits(string filename){
+    using byte = unsigned char;
+    constexpr size_t BITS_PER_BYTE = std::numeric_limits<byte>::digits;
+    using bits = std::bitset<BITS_PER_BYTE>;
+
+    if(ifstream file{filename, ios::binary}){
+        string result;
+        file >> noskipws;
+        byte b;
+        while(file >> b)
+            result += bits(b).to_string();
+        return result ;
+    }
+    else return {};
 }
