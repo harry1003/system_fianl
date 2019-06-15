@@ -11,8 +11,8 @@
 using namespace std;
 
 int main(){
-    string mode = "binary";
-    string file_name = "test1_1.txt";
+    string mode = "img";
+    string file_name = "test_case_1";
 
     string content = "";
     if(mode == "txt"){
@@ -27,8 +27,8 @@ int main(){
         content = read_bits(file_name);
     }
     else if(mode == "img"){
-        // Todo: for img file
-        content = "";
+        ifstream ifs("test_case_img.txt");
+        ifs >> content;
     }
 
     double DICS, DICE;
