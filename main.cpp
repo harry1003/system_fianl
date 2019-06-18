@@ -11,8 +11,8 @@
 using namespace std;
 
 int main(){
-    string mode = "img";
-    string file_name = "test_case_1";
+    string mode = "txt";
+    string file_name = "test_case_3.txt";
 
     string content = "";
     if(mode == "txt"){

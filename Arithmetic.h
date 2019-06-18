@@ -53,7 +53,6 @@ public:
                 low = 2 * (low - 0.5);
                 return answer;
             }
-
             Map::iterator it = dictionary.begin();
             Map::iterator before = it;
             double rescale = (x - low) / (high - low);
@@ -69,7 +68,6 @@ public:
                 }
                 before = it;
             }
-
             // update high and low
             double dis = high - low;
             high = low + dis * it->second;
@@ -93,7 +91,7 @@ public:
 
     double get_next(){
         if(size_t(current + length) > binary.size()){
-            cout << "heheh" << endl;
+            cout << "Missing EOF" << endl;
             exit(1);
         }
 

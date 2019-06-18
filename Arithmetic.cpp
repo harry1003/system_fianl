@@ -27,8 +27,9 @@ string Arithmetic::encode(string content, Map dictionary){
         else{
             high = it->second;
         }
+        
         s = range.encode_symbol(low, high);
-        answer = answer + s;
+        answer += s;
 
         if(i % 100000 == 0){
             cout << "encoding: " << i << " / " << content.size() << endl;
@@ -69,7 +70,7 @@ string Arithmetic::decode(string binary, Map dictionary, int length){
     while(!range.end){
         s = range.decode_symbol(x, dictionary);
         x = bits.get_next();
-        answer = answer + s;
+        answer += s;
         if(answer.size() % 10000 == 0){
             cout << "decoding: " << answer.size() << " / " << temp << endl;
         }
