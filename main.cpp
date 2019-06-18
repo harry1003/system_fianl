@@ -10,10 +10,14 @@
 
 using namespace std;
 
-int main(){
-    string mode = "txt";
-    string file_name = "test_case_3.txt";
-
+int main(int args, char *argv[]){
+    if(args != 3){
+        cout << "Please input ./encode_decode <file_name> <mode>" << endl;
+        exit(1);
+    }
+    string file_name = argv[1];
+    string mode = argv[2];
+    
     string content = "";
     if(mode == "txt"){
         ifstream ifs(file_name);
@@ -67,6 +71,7 @@ int main(){
     cout << endl;
 
     double compress_size_h = encode_h.size();
+    cout << "testing: " << file_name << ' ' << mode << endl;
     cout << "=====================" << endl;
     cout << "Get dictionary:          " << (DICE - DICS) / CLOCKS_PER_SEC << " s" << endl;
     cout << "=====================" << endl;

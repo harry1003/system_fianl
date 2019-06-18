@@ -3,6 +3,8 @@
 
 
 vector<string> LZW::encode(string source){
+	cout << "LZW encoding" << endl;
+
 	unordered_map<string, int> dictionary;
 	unordered_map<string, int>::iterator it;
 
@@ -34,6 +36,8 @@ vector<string> LZW::encode(string source){
 }
 
 string LZW::decode(vector<string> binary){
+	cout << "LZW decoding" << endl;
+
 	unordered_map<int, string> dictionary;
 	unordered_map<int, string>::iterator it;
 
@@ -65,5 +69,6 @@ string LZW::decode(vector<string> binary){
 		dictionary.insert(make_pair(count++, w + entry[0]));
 		w = entry;
 	}
+	cout << "Decoding end" << endl;
 	return answer;
 }
