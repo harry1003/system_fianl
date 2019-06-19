@@ -65,7 +65,7 @@ string LZW::decode(vector<string> binary){
 			cout << "Bad compression" << endl;
 			exit(1);
 		}
-		answer = answer + entry;
+		answer += entry;
 		dictionary.insert(make_pair(count++, w + entry[0]));
 		w = entry;
 	}
