@@ -2,6 +2,7 @@
 #include <fstream>
 #include <time.h>
 #include <math.h>
+#include <iomanip>
 
 #include "./util.h"
 #include "./Huffman.h"
@@ -49,7 +50,7 @@ int main(int args, char *argv[]){
     Huffman huffman;
     string encode_h = huffman.encode(content, dictionary);
     HEE = clock();
-    string decode = huffman.decode(encode_h, dictionary);
+    string decode_h = huffman.decode(encode_h, dictionary);
     HDE = clock();
 
     double AES, AEE, ADE;
@@ -69,7 +70,7 @@ int main(int args, char *argv[]){
     LDE = clock();
     
     cout << endl;
-
+    cout << fixed  <<  setprecision(5) << endl; 
     double compress_size_h = encode_h.size();
     cout << "testing: " << file_name << ' ' << mode << endl;
     cout << "=====================" << endl;
@@ -99,4 +100,9 @@ int main(int args, char *argv[]){
     cout << "LZW encode size:         " << compress_size_l << endl;
     cout << "Compression rate:        " << (origin_size - compress_size_l) / origin_size << endl;
     cout << endl;
+    // cout << decode_h << endl;
+    // cout << "==========" << endl;
+    // cout << decode_a << endl;
+    // cout << "==========" << endl;
+    // cout << decode_l << endl;
 }
